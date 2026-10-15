@@ -33,10 +33,10 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--coal);color:var(--cream);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--coal);color:var(--cream);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit}
 h1,h2,h3,h4{margin:0;text-wrap:balance}
@@ -478,7 +478,7 @@ const WA=t=>'https://wa.me/5533998475318?text='+encodeURIComponent(t);
 /* ---------- Smooth scroll ---------- */
 let lenis=null;
 if(!reduce&&window.Lenis){lenis=new Lenis({duration:1.15,smoothWheel:true});
-  (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(performance.now());}
+  (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(performance.now());window.__lenis=lenis;}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');const el=id.length>1&&document.querySelector(id);if(!el)return;e.preventDefault();closeMenu();
   if(lenis)lenis.scrollTo(el,{offset:-70});else el.scrollIntoView({behavior:reduce?'auto':'smooth'})}));
 
@@ -522,7 +522,7 @@ function resume(){if(!slider.classList.contains('paused'))return;slider.classLis
 bars.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
 document.getElementById('prev').addEventListener('click',()=>go(cur-1));
 document.getElementById('next').addEventListener('click',()=>go(cur+1));
-slider.addEventListener('mouseenter',pause);slider.addEventListener('mouseleave',resume);
+slider.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')pause()});slider.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')resume()});
 // swipe only — never fires on simple clicks
 let sx=null,sy=0;
 slider.addEventListener('pointerdown',e=>{if(e.target.closest('a,button'))return;sx=e.clientX;sy=e.clientY});
