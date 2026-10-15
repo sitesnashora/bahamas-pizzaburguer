@@ -282,6 +282,7 @@ footer{border-top:1px solid var(--line);padding-block:34px calc(34px + env(safe-
 .wa::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25d366;animation:ping 2.4s var(--ease) infinite;z-index:-1}
 @keyframes ping{0%{transform:scale(1);opacity:.5}80%,100%{transform:scale(1.6);opacity:0}}
 .wa:hover{transform:scale(1.08) rotate(-8deg)}
+.menu-open .wa{opacity:0;pointer-events:none}
 .wa svg{width:30px;height:30px;fill:#fff}
 @media (max-width:600px){.wa{width:54px;height:54px;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}.wa svg{width:26px;height:26px}}
 
