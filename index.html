@@ -168,9 +168,10 @@ section{padding-block:110px;position:relative}
   .slider{height:auto;min-height:0;border-radius:22px;display:grid}
   .slide{position:relative;grid-area:1/1;display:flex;flex-direction:column;overflow:hidden}
   .slide-media{overflow:hidden}
-  .slide img{position:relative;inset:auto;height:auto;aspect-ratio:1/1;flex:none}
-  .slide::after{inset:0 0 auto 0;aspect-ratio:1/1;height:auto;background:linear-gradient(0deg,var(--ash) 0%,rgba(22,19,17,0) 35%)}
-  .slide-body{position:relative;top:auto;padding:0 22px 96px;margin-top:-56px;justify-content:flex-start;max-width:none}
+  .slide img,.slide.on img{position:relative;inset:auto;height:auto;aspect-ratio:1/1;flex:none;transform:none;transition:none}
+  .slide-body{background:var(--ash)}
+  .slide::after{inset:0 0 auto 0;aspect-ratio:1/1;height:auto;background:linear-gradient(0deg,var(--ash) 0%,rgba(22,19,17,0) 40%)}
+  .slide-body{position:relative;top:auto;padding:0 22px 96px;margin-top:-1px;justify-content:flex-start;max-width:none}
   .slide h3{font-size:2.3rem;margin:10px 0 10px}
   .slide p{margin-bottom:20px;font-size:.98rem}
   .slider-ui{left:22px;right:22px;bottom:24px}
