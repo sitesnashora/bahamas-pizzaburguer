@@ -114,6 +114,11 @@ header.solid{background:rgba(11,10,9,.82);backdrop-filter:blur(16px);-webkit-bac
   .hero{padding-top:calc(104px + env(safe-area-inset-top,0px))}
   .hero-grid{grid-template-columns:1fr;gap:50px}
   .stage{justify-self:center;max-width:460px;width:88%}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:32px}
+  .stat b{font-size:1.45rem}
+  .stat small{font-size:.6rem;letter-spacing:.08em}
+  .actions .btn{flex:1 1 auto}
+  .tag-float{left:-2%;bottom:14%;padding:9px 14px;font-size:.82rem}
 }
 
 /* ---------- Ticker ---------- */
@@ -160,9 +165,13 @@ section{padding-block:110px;position:relative}
 .arrows svg{width:20px;height:20px}
 .count{font-family:var(--f-mono);font-size:.85rem;color:var(--smoke);font-variant-numeric:tabular-nums;min-width:4.5em;text-align:right}
 @media (max-width:760px){
-  .slider{height:640px;min-height:0;border-radius:22px}
-  .slide::after{background:linear-gradient(0deg,rgba(11,10,9,.96) 0%,rgba(11,10,9,.75) 45%,rgba(11,10,9,.05) 75%)}
-  .slide-body{top:auto;padding:0 22px 100px;justify-content:flex-end}
+  .slider{height:auto;min-height:0;border-radius:22px;display:grid}
+  .slide{position:relative;grid-area:1/1;display:flex;flex-direction:column}
+  .slide img{position:relative;inset:auto;height:auto;aspect-ratio:1/1;flex:none}
+  .slide::after{inset:0 0 auto 0;aspect-ratio:1/1;height:auto;background:linear-gradient(0deg,var(--ash) 0%,rgba(22,19,17,0) 35%)}
+  .slide-body{position:relative;top:auto;padding:0 22px 96px;margin-top:-56px;justify-content:flex-start;max-width:none}
+  .slide h3{font-size:2.3rem;margin:10px 0 10px}
+  .slide p{margin-bottom:20px;font-size:.98rem}
   .slider-ui{left:22px;right:22px;bottom:24px}
   .arrows button{width:44px;height:44px}
   .count{display:none}
@@ -338,7 +347,7 @@ footer{border-top:1px solid var(--line);padding-block:34px calc(34px + env(safe-
         <div class="chip c2" data-speed=".6" data-rot="40"><img src="https://images.unsplash.com/photo-1770350482631-09ea3470d252?auto=format&fit=crop&w=300&h=300&q=75" alt=""></div>
         <div class="chip c3" data-speed=".25" data-rot="-20"><img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?auto=format&fit=crop&w=300&h=300&q=75" alt=""></div>
         <div class="chip c4" data-speed=".75" data-rot="60"><img src="https://images.unsplash.com/photo-1785064630112-bfe9795aa188?auto=format&fit=crop&w=240&h=240&q=75" alt=""></div>
-        <div class="tag-float"><small>Direto do forno</small>Pizza grande 8 fatias</div>
+        <div class="tag-float"><small>Direto do forno</small>Feita na hora</div>
       </div>
     </div>
   </section>
@@ -603,7 +612,7 @@ function update(){
   if(reduce)return;
   // hero pizza spins with scroll
   if(spinDone)pizza.style.transform=`rotate(${y*.22}deg) scale(${1+clamp(y,0,700)/4000})`;
-  chips.forEach(c=>{const s=+c.dataset.speed,r=+c.dataset.rot;c.style.transform=`translate3d(0,${-y*s}px,0) rotate(${y*r/400}deg)`});
+  const k=innerWidth<900?.25:1;chips.forEach(c=>{const s=+c.dataset.speed*k,r=+c.dataset.rot;c.style.transform=`translate3d(0,${-Math.min(y,900)*s}px,0) rotate(${y*r/400}deg)`});
   // ticker
   const tw=tk.firstElementChild.offsetWidth||1;tk.style.transform=`translate3d(${-((y*.5)%tw)}px,0,0)`;
   // band parallax
